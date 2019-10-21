@@ -1,0 +1,23 @@
+{
+  "name": "@dimakorotkov/tinymce-mathjax",
+  "version": "1.0.0",
+  "description": "Plugin using MathJax library for rendering math font",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dimakorotkov/tinymce-mathjax.git"
+  },
+  "keywords": [
+    "tinymce",
+    "mathjax"
+  ],
+  "author": "Dmitriy Korotkov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dimakorotkov/tinymce-mathjax/issues"
+  },
+  "homepage": "https://github.com/dimakorotkov/tinymce-mathjax#readme"
+}
