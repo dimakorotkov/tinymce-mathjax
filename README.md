@@ -11,6 +11,16 @@ This plugin compatible with TinyMCE 5 and MathJax 3.
 npm i @dimakorotkov/tinymce-mathjax --save
 ```
 
+You can install mathjax and tinymce from npm
+```
+npm i mathjax --save
+```
+```
+npm i tinymce --save
+```
+
+
+
 ### Download
 
 * [Latest build](https://github.com/dimakorotkov/tinymce-mathjax/archive/master.zip)
