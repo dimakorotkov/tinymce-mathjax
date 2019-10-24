@@ -1,5 +1,7 @@
 # TinyMCE MathJax Plugin
 
+<span class="badge-patreon"><a href="https://www.patreon.com/dimakorotkov" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+
 This plugin using [MathJax](https://www.mathjax.org) library for rendering math font.
 
 This plugin compatible with TinyMCE 5 and MathJax 3.
