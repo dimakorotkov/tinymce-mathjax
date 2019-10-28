@@ -58,7 +58,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
       dummy.setAttribute('hidden', 'hidden');
       element.appendChild(dummy);
     }
-  }
+  };
 
   // add dummy tag on set content
   editor.on('BeforeSetContent', function (e) {
