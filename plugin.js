@@ -13,10 +13,22 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
 
   // load mathjax and its config on editor init
   editor.on('init', function () {
+    let scripts = editor.getDoc().getElementsByTagName('script');
     for (let i = 0; i < mathjaxScripts.length; i++) {
+      // check if script have already loaded
       let id = editor.dom.uniqueId();
       let script = editor.dom.create('script', {id: id, type: 'text/javascript', src: mathjaxScripts[i]});
-      editor.getDoc().getElementsByTagName('head')[0].appendChild(script);
+      let found = false;
+      for (let j = 0; j < scripts.length; j++) {
+        if (scripts[j].src == script.src) {
+          found = true;
+          break;
+        }
+      }
+      // load script
+      if (!found) {
+        editor.getDoc().getElementsByTagName('head')[0].appendChild(script);
+      }
     }
   });
 
