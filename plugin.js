@@ -92,10 +92,20 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
   });
 
   // add button to tinimce
-  editor.ui.registry.addButton('mathjax', {
+  editor.ui.registry.addToggleButton('mathjax', {
     text: 'Σ',
     tooltip: 'Mathjax',
-    onAction: function() {openMathjaxEditor();}
+    onAction: function() {
+      let selected = editor.selection.getNode();
+      let target = undefined;
+      if (selected.classList.contains(mathjaxClassName)) {
+        target = selected;
+      }
+      openMathjaxEditor(target);
+    },
+    onSetup: function (buttonApi) {
+      return editor.selection.selectorChangedWithUnbind('.' + mathjaxClassName, buttonApi.setActive).unbind;
+    }
   });
 
   // handle click on existing
