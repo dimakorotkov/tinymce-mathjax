@@ -3,7 +3,8 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
   // plugin configuration options
   let mathjaxClassName = editor.settings.mathjax.className || "math-tex";
   let mathjaxTempClassName = mathjaxClassName + '-original';
-  let mathjaxSymbols = editor.settings.mathjax.symbols || {start: '\\(', end: '\\)'};
+  let mathjaxSymbols = editor.settings.mathjax.symbols || { inline: { start: '\\(', end: '\\)'}, block: { start: '\\[', end: '\\]'} };
+  let mathjaxStyle = 'inline';
   let mathjaxUrl = editor.settings.mathjax.lib || null;
   let mathjaxConfigUrl = (editor.settings.mathjax.configUrl || url + '/config.js') + '?class=' + mathjaxTempClassName;
   let mathjaxScripts = [mathjaxConfigUrl];
@@ -124,8 +125,10 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
     let latex = '';
     if (target) {
       latex_attribute = target.getAttribute('data-latex');
-      if (latex_attribute.length >= (mathjaxSymbols.start + mathjaxSymbols.end).length) {
-        latex = latex_attribute.substr(mathjaxSymbols.start.length, latex_attribute.length - (mathjaxSymbols.start + mathjaxSymbols.end).length);
+      // Checks if opened target is block or inline
+      mathjaxStyle = (latex_attribute.substring(0, mathjaxSymbols.block.start.length) === mathjaxSymbols.block.start) ? 'block' : 'inline'; 
+      if (latex_attribute.length >= (mathjaxSymbols[mathjaxStyle].start + mathjaxSymbols[mathjaxStyle].end).length) {
+        latex = latex_attribute.substr(mathjaxSymbols[mathjaxStyle].start.length, latex_attribute.length - (mathjaxSymbols[mathjaxStyle].start + mathjaxSymbols[mathjaxStyle].end).length);
       }
     }
 
@@ -140,9 +143,18 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
             type: 'textarea',
             name: 'title',
             label: 'LaTex'
-          }, {
+          },{
             type: 'htmlpanel',
             html: '<div style="text-align:right"><a href="https://wikibooks.org/wiki/LaTeX/Mathematics" target="_blank" style="font-size:small">LaTex</a></div>'
+          }, {
+            type: 'selectbox',
+            name: 'style',
+            size: 1,
+            items: [
+              { value: 'inline', text: 'inline'},
+              { value: 'block', text: 'block'}
+            ],
+            label: tinymce.util.I18n.translate("Render display style"), 
           }, {
             type: 'htmlpanel',
             html: '<iframe id="' + mathjaxId + '" style="width: 100%; min-height: 50px;"></iframe>'
@@ -167,13 +179,14 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
         api.close();
       },
       onChange: function(api) {
+        mathjaxStyle = api.getData().style;
         var value = api.getData().title.trim();
         if (value != latex) {
           refreshDialogMathjax(value, document.getElementById(mathjaxId));
           latex = value;
         }
       },
-      initialData: {title: latex}
+      initialData: {title: latex, style: mathjaxStyle}
     });
 
     // add scripts to iframe
@@ -186,7 +199,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
     // get latex for mathjax from simple text
     let getMathText = function (value, symbols) {
       if (!symbols) {
-        symbols = mathjaxSymbols;
+        symbols = mathjaxSymbols[mathjaxStyle];
       }
       return symbols.start + ' ' + value + ' ' + symbols.end;
     };
