@@ -41,7 +41,7 @@ tinymce.init({
   toolbar: 'mathjax',
   mathjax: {
     lib: '/path-to-mathjax/es5/tex-mml-chtml.js', //required path to mathjax
-    //symbols: {start: '\\(', end: '\\)'}, //optional: mathjax symbols
+    //symbols: { inline: { start: '\\(', end: '\\)'}, block: { start: '\\[', end: '\\]'} }, //optional: mathjax symbols
     //className: "math-tex", //optional: mathjax element class
     //configUrl: '/your-path-to-plugin/@dimakorotkov/tinymce-mathjax/config.js' //optional: mathjax config js
   }
