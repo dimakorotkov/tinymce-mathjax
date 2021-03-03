@@ -125,6 +125,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
     let latex = '';
     if (target) {
       latex_attribute = target.getAttribute('data-latex');
+      // Checks if opened target is block or inline
       mathjaxStyle = (latex_attribute.substring(0, mathjaxSymbols.block.start.length) === mathjaxSymbols.block.start) ? 'block' : 'inline'; 
       if (latex_attribute.length >= (mathjaxSymbols[mathjaxStyle].start + mathjaxSymbols[mathjaxStyle].end).length) {
         latex = latex_attribute.substr(mathjaxSymbols[mathjaxStyle].start.length, latex_attribute.length - (mathjaxSymbols[mathjaxStyle].start + mathjaxSymbols[mathjaxStyle].end).length);
@@ -142,6 +143,9 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
             type: 'textarea',
             name: 'title',
             label: 'LaTex'
+          },{
+            type: 'htmlpanel',
+            html: '<div style="text-align:right"><a href="https://wikibooks.org/wiki/LaTeX/Mathematics" target="_blank" style="font-size:small">LaTex</a></div>'
           }, {
             type: 'selectbox',
             name: 'style',
@@ -150,10 +154,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
               { value: 'inline', text: 'inline'},
               { value: 'block', text: 'block'}
             ],
-            label: 'Render expression inline or as a block', 
-          }, {
-            type: 'htmlpanel',
-            html: '<div style="text-align:right"><a href="https://wikibooks.org/wiki/LaTeX/Mathematics" target="_blank" style="font-size:small">LaTex</a></div>'
+            label: tinymce.util.I18n.translate("Render display style"), 
           }, {
             type: 'htmlpanel',
             html: '<iframe id="' + mathjaxId + '" style="width: 100%; min-height: 50px;"></iframe>'
