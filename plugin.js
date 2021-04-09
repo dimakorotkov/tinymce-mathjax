@@ -91,6 +91,20 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
     }
   });
 
+  // refresh mathjax on any content change
+  editor.on('Change', function(data) {
+    elements = editor.dom.getRoot().querySelectorAll('.' + mathjaxClassName);
+    if (elements.length) {
+      for (let i = 0 ; i < elements.length; i++) {
+        checkElement(elements[i]);
+      }
+      if (editor.getDoc().defaultView.MathJax) {
+        editor.getDoc().defaultView.MathJax.startup.getComponents();
+        editor.getDoc().defaultView.MathJax.typeset();
+      }
+    }
+  });
+
   // add button to tinimce
   editor.ui.registry.addToggleButton('mathjax', {
     text: 'Σ',
