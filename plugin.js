@@ -119,7 +119,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
   // open window with editor
   let openMathjaxEditor = function(target) {
 
-    let mathjaxId = editor.dom.uniqueId();
+    let mathjaxId = editor.id + '_' + editor.dom.uniqueId();
 
     let latex = '';
     if (target) {
