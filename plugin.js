@@ -1,11 +1,12 @@
 tinymce.PluginManager.add('mathjax', function(editor, url) {
 
   // plugin configuration options
-  let mathjaxClassName = editor.settings.mathjax.className || "math-tex";
+  let settings = editor.getParam('mathjax');
+  let mathjaxClassName = settings.className || "math-tex";
   let mathjaxTempClassName = mathjaxClassName + '-original';
-  let mathjaxSymbols = editor.settings.mathjax.symbols || {start: '\\(', end: '\\)'};
-  let mathjaxUrl = editor.settings.mathjax.lib || null;
-  let mathjaxConfigUrl = (editor.settings.mathjax.configUrl || url + '/config.js') + '?class=' + mathjaxTempClassName;
+  let mathjaxSymbols = settings.symbols || {start: '\\(', end: '\\)'};
+  let mathjaxUrl = settings.lib || null;
+  let mathjaxConfigUrl = (settings.configUrl || url + '/config.js') + '?class=' + mathjaxTempClassName;
   let mathjaxScripts = [mathjaxConfigUrl];
   if (mathjaxUrl) {
     mathjaxScripts.push(mathjaxUrl);
