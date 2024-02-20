@@ -87,8 +87,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
   // refresh mathjax on set content
   editor.on('SetContent', function(e) {
     if (editor.getDoc().defaultView.MathJax) {
-      editor.getDoc().defaultView.MathJax.startup.getComponents();
-      editor.getDoc().defaultView.MathJax.typeset();
+      editor.getDoc().defaultView.MathJax.typesetPromise();
     }
   });
 
@@ -100,8 +99,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
         checkElement(elements[i]);
       }
       if (editor.getDoc().defaultView.MathJax) {
-        editor.getDoc().defaultView.MathJax.startup.getComponents();
-        editor.getDoc().defaultView.MathJax.typeset();
+        editor.getDoc().defaultView.MathJax.typesetPromise();
       }
     }
   });
@@ -177,8 +175,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
           checkElement(newElement);
           editor.insertContent(newElement.outerHTML);
         }
-        editor.getDoc().defaultView.MathJax.startup.getComponents();
-        editor.getDoc().defaultView.MathJax.typeset();
+        editor.getDoc().defaultView.MathJax.typesetPromise();
         api.close();
       },
       onChange: function(api) {
@@ -216,9 +213,8 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
         iframeBody.appendChild(div);
       }
       div.innerHTML = getMathText(latex, {start: '$$', end: '$$'});
-      if (MathJax && MathJax.startup) {
-        MathJax.startup.getComponents();
-        MathJax.typeset();
+      if (MathJax) {
+        MathJax.typesetPromise();
       }
     };
     refreshDialogMathjax(latex);
