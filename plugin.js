@@ -21,7 +21,7 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
       let script = editor.dom.create('script', {id: id, type: 'text/javascript', src: mathjaxScripts[i]});
       let found = false;
       for (let j = 0; j < scripts.length; j++) {
-        if (scripts[j].src == script.src) {
+        if (scripts[j].src == script.src || scripts[j].src == mathjaxScripts[i]) {
           found = true;
           break;
         }
