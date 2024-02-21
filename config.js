@@ -15,7 +15,7 @@
   }
   MathJax = {
     options: {
-      processHtmlClass: className,
+      processHtmlClass: className + '|' + className + '-original',
       ignoreHtmlClass: '.*'
     }
   };

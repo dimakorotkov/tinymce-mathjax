@@ -6,7 +6,10 @@ tinymce.PluginManager.add('mathjax', function(editor, url) {
   let mathjaxTempClassName = mathjaxClassName + '-original';
   let mathjaxSymbols = settings.symbols || {start: '\\(', end: '\\)'};
   let mathjaxUrl = settings.lib || null;
-  let mathjaxConfigUrl = (settings.configUrl || url + '/config.js') + '?class=' + mathjaxTempClassName;
+  let mathjaxConfigUrl = (settings.configUrl || url + '/config.js');
+  if (settings.className) {
+      mathjaxConfigUrl += '?class=' + settings.className
+  }
   let mathjaxScripts = [mathjaxConfigUrl];
   if (mathjaxUrl) {
     mathjaxScripts.push(mathjaxUrl);
